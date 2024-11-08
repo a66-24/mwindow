@@ -164,34 +164,51 @@
 /* 响应式布局 */
 /* 手机端 */
 @media (max-width: 767px) {
+    .window-container {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        padding: 10px;
+    }
+
     .browser-window {
         width: 100%;
-        min-height: 80vh; /* 使用视口高度 */
+        min-height: 80vh;
+        margin-bottom: 15px;
+    }
+
+    .browser-window:last-child {
+        scroll-margin-top: 20px;
+    }
+
+    .navbar .container-fluid {
+        flex-direction: column;
+        padding: 10px;
     }
 
     .window-controls {
+        width: 100%;
+        display: flex;
         flex-wrap: wrap;
         justify-content: center;
-        gap: 5px;
+        gap: 8px;
+        margin: 10px 0;
+    }
+
+    .window-controls .btn {
+        flex: 1;
+        min-width: auto;
+        font-size: 0.9rem;
+        padding: 8px;
+    }
+
+    .navbar-nav {
+        width: 100%;
     }
 
     .navbar-nav .form-control {
         width: 100%;
         margin: 10px 0;
-    }
-
-    .window-header {
-        padding: 8px;
-    }
-
-    .device-info {
-        font-size: 0.6rem;
-    }
-
-    .window-actions .btn {
-        height: 20px;
-        font-size: 0.6rem;
-        padding: 0 6px;
     }
 }
 

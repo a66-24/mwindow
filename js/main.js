@@ -23,30 +23,37 @@ const app = createApp({
     methods: {
         async createNewWindow() {
             try {
-                // 获取设备类型
                 const isMobile = window.innerWidth <= 767;
-                const isTablet = window.innerWidth > 767 && window.innerWidth <= 991;
                 
-                // 根据设备类型设置最大窗口数
-                const maxWindows = isMobile ? 1 : (isTablet ? 4 : this.maxWindowsPerRow * 3);
-                
-                if (this.windows.length >= maxWindows) {
+                // 手机端不限制窗口数量，直接创建新窗口
+                if (!isMobile && this.windows.length >= this.maxWindowsPerRow * 3) {
                     throw new Error('已达到最大窗口数限制！');
                 }
 
                 this.isLoading = true;
                 const deviceProfile = await FingerprintService.generateDeviceProfile();
                 
-                this.windows.push({
+                const newWindow = {
                     id: Date.now(),
                     ...deviceProfile,
                     url: this.settings.defaultUrl,
                     isLoading: false,
                     error: null
-                });
+                };
                 
+                this.windows.push(newWindow);
                 this.saveToLocalStorage();
                 ToastService.show('新窗口创建成功', 'success');
+
+                // 在手机端，确保新创建的窗口可见
+                if (isMobile) {
+                    this.$nextTick(() => {
+                        const newWindowElement = document.querySelector('.browser-window:last-child');
+                        if (newWindowElement) {
+                            newWindowElement.scrollIntoView({ behavior: 'smooth' });
+                        }
+                    });
+                }
             } catch (error) {
                 ToastService.show(error.message, 'error');
             } finally {
@@ -160,7 +167,7 @@ const app = createApp({
             const deviceProfile = await FingerprintService.generateDeviceProfile(this.settings.deviceStrategy);
             Object.assign(window, deviceProfile);
             this.saveToLocalStorage();
-            ToastService.show('设备指纹已更新', 'success');
+            ToastService.show('设备���纹已更新', 'success');
         },
 
         handleIframeError(index) {
@@ -197,7 +204,7 @@ const app = createApp({
                 
                 this.saveToLocalStorage();
                 this.saveSettings();
-                ToastService.show('配置导入成功', 'success');
+                ToastService.show('配置导入��功', 'success');
             } catch (error) {
                 ToastService.show('配置导入失败：' + error.message, 'error');
             }
