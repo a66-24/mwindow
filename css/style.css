@@ -1,3 +1,33 @@
+:root {
+    --navbar-bg: #333333; /* 深灰色 */
+    --primary-color: #4a4a4a; /* 主色调：深灰色 */
+    --secondary-color: #666666; /* 次要色调：中灰色 */
+    --info-color: #808080; /* 信息色：灰色 */
+    /* 其他颜色变量... */
+}
+
+/* 修改导航栏样式 */
+.navbar.bg-primary {
+    background-color: var(--navbar-bg) !important;
+}
+
+/* 修改徽章颜色 */
+.badge.bg-info {
+    background-color: var(--info-color) !important;
+}
+
+/* 修改按钮颜色 */
+.btn-primary {
+    background-color: var(--primary-color) !important;
+    border-color: var(--primary-color) !important;
+}
+
+/* 调整导航栏文字颜色 */
+.navbar-dark .navbar-brand {
+    color: #fff;
+    font-weight: 500;
+}
+
 .window-container {
     display: flex;
     flex-wrap: wrap;
@@ -169,18 +199,23 @@
         flex-direction: column;
         gap: 15px;
         padding: 10px;
+        min-height: 100vh; /* 确保容器至少有一个视口高度 */
     }
 
     .browser-window {
-        width: 100%;
+        width: 100% !important; /* 强制宽度100% */
         min-height: 80vh;
         margin-bottom: 15px;
+        flex-shrink: 0; /* 防止窗口被压缩 */
     }
 
-    .browser-window:last-child {
-        scroll-margin-top: 20px;
+    .window-content {
+        height: calc(80vh - 120px);
+        min-height: 300px;
+        position: relative;
     }
 
+    /* 确保导航栏在手机端正确显示 */
     .navbar .container-fluid {
         flex-direction: column;
         padding: 10px;
@@ -200,8 +235,10 @@
         min-width: auto;
         font-size: 0.9rem;
         padding: 8px;
+        white-space: nowrap;
     }
 
+    /* 优化输入框在手机端的显示 */
     .navbar-nav {
         width: 100%;
     }

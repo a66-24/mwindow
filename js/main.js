@@ -25,11 +25,6 @@ const app = createApp({
             try {
                 const isMobile = window.innerWidth <= 767;
                 
-                // 手机端不限制窗口数量，直接创建新窗口
-                if (!isMobile && this.windows.length >= this.maxWindowsPerRow * 3) {
-                    throw new Error('已达到最大窗口数限制！');
-                }
-
                 this.isLoading = true;
                 const deviceProfile = await FingerprintService.generateDeviceProfile();
                 
@@ -38,27 +33,34 @@ const app = createApp({
                     ...deviceProfile,
                     url: this.settings.defaultUrl,
                     isLoading: false,
-                    error: null
+                    error: null,
+                    width: isMobile ? '100%' : '20%'
                 };
                 
                 this.windows.push(newWindow);
                 this.saveToLocalStorage();
-                ToastService.show('新窗口创建成功', 'success');
-
+                
                 // 在手机端，确保新创建的窗口可见
                 if (isMobile) {
                     this.$nextTick(() => {
-                        const newWindowElement = document.querySelector('.browser-window:last-child');
-                        if (newWindowElement) {
-                            newWindowElement.scrollIntoView({ behavior: 'smooth' });
-                        }
+                        window.scrollTo({
+                            top: document.body.scrollHeight,
+                            behavior: 'smooth'
+                        });
                     });
                 }
+
+                ToastService.show('新窗口创建成功', 'success');
             } catch (error) {
                 ToastService.show(error.message, 'error');
             } finally {
                 this.isLoading = false;
             }
+        },
+
+        // 添加一个新的辅助方法来检查是否为移动设备
+        isMobileDevice() {
+            return window.innerWidth <= 767;
         },
 
         async navigateTo(index) {
@@ -167,7 +169,7 @@ const app = createApp({
             const deviceProfile = await FingerprintService.generateDeviceProfile(this.settings.deviceStrategy);
             Object.assign(window, deviceProfile);
             this.saveToLocalStorage();
-            ToastService.show('设备���纹已更新', 'success');
+            ToastService.show('设备纹已更新', 'success');
         },
 
         handleIframeError(index) {
@@ -204,9 +206,9 @@ const app = createApp({
                 
                 this.saveToLocalStorage();
                 this.saveSettings();
-                ToastService.show('配置导入��功', 'success');
+                ToastService.show('配置导入成功', 'success');
             } catch (error) {
-                ToastService.show('配置导入失败：' + error.message, 'error');
+                ToastService.show('置导入失败：' + error.message, 'error');
             }
         },
 
@@ -333,6 +335,8 @@ const app = createApp({
         
         // 加载保存的窗口
         this.loadFromLocalStorage();
+        
+        // 如果没有窗口，创建一个新窗口
         if (this.windows.length === 0) {
             this.createNewWindow();
         }
