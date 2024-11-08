@@ -15,7 +15,7 @@
     flex-direction: column;
     overflow: hidden;
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    width: var(--window-width, 20%);
+    width: 100%;
 }
 
 .window-header {
@@ -159,4 +159,83 @@
 .navbar-nav .form-control {
     width: 300px; /* 调整输入框宽度 */
     margin-right: 10px; /* 添加右边距 */
+}
+
+/* 响应式布局 */
+/* 手机端 */
+@media (max-width: 767px) {
+    .browser-window {
+        width: 100%;
+        min-height: 80vh; /* 使用视口高度 */
+    }
+
+    .window-controls {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 5px;
+    }
+
+    .navbar-nav .form-control {
+        width: 100%;
+        margin: 10px 0;
+    }
+
+    .window-header {
+        padding: 8px;
+    }
+
+    .device-info {
+        font-size: 0.6rem;
+    }
+
+    .window-actions .btn {
+        height: 20px;
+        font-size: 0.6rem;
+        padding: 0 6px;
+    }
+}
+
+/* 平板端 */
+@media (min-width: 768px) and (max-width: 991px) {
+    .browser-window {
+        width: calc(50% - 10px);
+        min-height: 60vh;
+    }
+}
+
+/* 桌面端 */
+@media (min-width: 992px) {
+    .browser-window {
+        width: calc(20% - 10px);
+        min-height: 500px;
+    }
+}
+
+/* 导航栏响应式 */
+@media (max-width: 767px) {
+    .navbar .container-fluid {
+        flex-direction: column;
+        align-items: stretch;
+        padding: 10px;
+    }
+
+    .window-controls {
+        margin: 10px 0;
+    }
+
+    .navbar-brand {
+        text-align: center;
+        margin-bottom: 10px;
+    }
+}
+
+/* 模态框响应式 */
+@media (max-width: 767px) {
+    .modal-dialog {
+        margin: 10px;
+    }
+
+    .modal-body {
+        padding: 10px;
+    }
 }

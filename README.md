@@ -63,8 +63,3 @@
 ## 许可证
 
 该项目使用 MIT 许可证。 
-
-
-
-git config --global user.email "a66.chkt@outlook.com"
-git config --global user.name "a66-24"

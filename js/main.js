@@ -23,7 +23,14 @@ const app = createApp({
     methods: {
         async createNewWindow() {
             try {
-                if (this.windows.length >= this.maxWindowsPerRow * 3) {
+                // 获取设备类型
+                const isMobile = window.innerWidth <= 767;
+                const isTablet = window.innerWidth > 767 && window.innerWidth <= 991;
+                
+                // 根据设备类型设置最大窗口数
+                const maxWindows = isMobile ? 1 : (isTablet ? 4 : this.maxWindowsPerRow * 3);
+                
+                if (this.windows.length >= maxWindows) {
                     throw new Error('已达到最大窗口数限制！');
                 }
 
@@ -35,8 +42,7 @@ const app = createApp({
                     ...deviceProfile,
                     url: this.settings.defaultUrl,
                     isLoading: false,
-                    error: null,
-                    width: this.windowSize + '%'
+                    error: null
                 });
                 
                 this.saveToLocalStorage();
