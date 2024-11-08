@@ -35,7 +35,12 @@
                     </div>
                 </div>
                 <div class="navbar-nav">
-                    <input type="text" class="form-control" placeholder="输入网址并按回车" @keyup.enter="navigateAll" v-model="globalUrl">
+                    <div style="position: relative;">
+                        <input type="text" class="form-control" placeholder="输入网址并按回车" @keyup.enter="navigateAll" v-model="globalUrl">
+                        <button class="url-submit-btn" @click="navigateAll">
+                            <i class="bi bi-arrow-right-circle-fill"></i>
+                        </button>
+                    </div>
                 </div>
             </div>
         </nav>
@@ -125,7 +130,7 @@
                             <button class="btn btn-sm btn-outline-secondary" @click="reloadWindow(index)" title="刷新页面">
                                 <i class="bi bi-arrow-repeat"></i>
                             </button>
-                            <button class="btn btn-sm btn-danger" @click="closeWindow(index)" title="关闭窗口">
+                            <button class="btn btn-sm btn-danger" @click="closeWindow(index)" title="闭窗口">
                                 <i class="bi bi-x"></i>
                             </button>
                         </div>
@@ -146,17 +151,32 @@
                                 @load="window.isLoading = false"
                                 @error="handleIframeError(index)">
                         </iframe>
-                    </div>
-                    <div class="window-footer">
-                        <input type="text" 
-                               class="form-control form-control-sm" 
-                               v-model="window.url"
-                               @keyup.enter="navigateTo(index)"
-                               placeholder="输入网址">
+                        <button class="url-edit-btn" @click="toggleUrlInput(index)" title="编辑网址">
+                            <i class="bi bi-pencil-fill"></i>
+                        </button>
+                        <button class="back-to-top-iframe" @click="scrollIframeToTop(index)" title="返回顶部">
+                            <i class="bi bi-arrow-up"></i>
+                        </button>
+                        <div class="window-footer" :id="'footer-'+index">
+                            <div class="input-group">
+                                <input type="text" 
+                                       class="form-control" 
+                                       v-model="window.url"
+                                       @keyup.enter="navigateTo(index); toggleUrlInput(index)"
+                                       placeholder="输入网址">
+                                <button class="btn btn-outline-secondary" @click="navigateTo(index); toggleUrlInput(index)">
+                                    确认
+                                </button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
+
+        <button class="back-to-top" :class="{ visible: showBackToTop }" @click="scrollToTop">
+            <i class="bi bi-arrow-up"></i>
+        </button>
     </div>
 
     <!-- Vue 3 -->

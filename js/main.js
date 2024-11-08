@@ -17,7 +17,8 @@ const app = createApp({
             },
             autoSaveTimer: null,
             settingsModal: null,
-            globalUrl: ''
+            globalUrl: '',
+            showBackToTop: false,
         }
     },
     methods: {
@@ -313,6 +314,58 @@ const app = createApp({
 
             this.saveToLocalStorage();
             ToastService.show('所有窗口已导航到新网址', 'success');
+        },
+
+        // 切换URL输入框的显示/隐藏
+        toggleUrlInput(index) {
+            const footer = document.getElementById(`footer-${index}`);
+            if (footer) {
+                const isVisible = footer.style.display === 'block';
+                footer.style.display = isVisible ? 'none' : 'block';
+                if (!isVisible) {
+                    // 显示输入框时自动聚焦
+                    setTimeout(() => {
+                        const input = footer.querySelector('input');
+                        if (input) {
+                            input.focus();
+                            input.select(); // 选中所有文本
+                        }
+                    }, 100);
+                }
+            }
+        },
+
+        // 回到顶部
+        scrollToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        },
+
+        // 监听滚动以显示/隐藏回到顶部按钮
+        handleScroll() {
+            this.showBackToTop = window.scrollY > 300;
+        },
+
+        // 滚动iframe到顶部
+        scrollIframeToTop(index) {
+            const iframe = document.querySelectorAll('.window-iframe')[index];
+            if (iframe) {
+                try {
+                    // 尝试滚动iframe内容
+                    iframe.contentWindow.scrollTo({
+                        top: 0,
+                        behavior: 'smooth'
+                    });
+                } catch (error) {
+                    // 如果因为跨域无法访问iframe内容，至少滚动iframe元素本身
+                    iframe.scrollTo({
+                        top: 0,
+                        behavior: 'smooth'
+                    });
+                }
+            }
         }
     },
     watch: {
@@ -345,10 +398,24 @@ const app = createApp({
         this.setupAutoSave();
         this.setupKeyboardShortcuts();
         this.setupDragAndDrop();
+
+        // 添加滚动监听
+        window.addEventListener('scroll', this.handleScroll);
+        
+        // 初始化所有窗口的 URL 输入框为隐藏状态
+        this.$nextTick(() => {
+            this.windows.forEach((_, index) => {
+                const footer = document.getElementById(`footer-${index}`);
+                if (footer) {
+                    footer.style.display = 'none';
+                }
+            });
+        });
     },
     beforeUnmount() {
         if (this.autoSaveTimer) {
             clearInterval(this.autoSaveTimer);
         }
+        window.removeEventListener('scroll', this.handleScroll);
     }
 }).mount('#app') 
