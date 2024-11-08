@@ -1,0 +1,162 @@
+.window-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    padding: 15px;
+}
+
+.browser-window {
+    min-height: 500px;
+    background: #fff;
+    border: 1px solid #dee2e6;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    width: var(--window-width, 20%);
+}
+
+.window-header {
+    padding: 4px;
+    background: #f8f9fa;
+    border-bottom: 1px solid #dee2e6;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.window-content {
+    flex: 1;
+    position: relative;
+}
+
+.window-iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+    position: absolute;
+}
+
+.window-footer {
+    padding: 8px;
+    background: #f8f9fa;
+    border-top: 1px solid #dee2e6;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.device-info {
+    display: flex;
+    gap: 4px;
+    align-items: center;
+    font-size: 0.7rem;
+    font-weight: bold;
+    justify-content: flex-start;
+}
+
+.window-controls {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.form-range {
+    width: 150px;
+}
+
+/* 确保每行最多5个窗口 */
+@media (min-width: 992px) {
+    .browser-window {
+        max-width: calc(20% - 10px);
+        min-width: calc(20% - 10px);
+    }
+}
+
+/* 添加 Toast 样式 */
+.toast {
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    margin-bottom: 10px;
+    transition: all 0.3s ease;
+    max-width: 350px;
+}
+
+.toast-content {
+    padding: 12px 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.toast-icon {
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    font-weight: bold;
+}
+
+.toast-success .toast-icon {
+    background: #e6f4ea;
+    color: #1e8e3e;
+}
+
+.toast-error .toast-icon {
+    background: #fce8e6;
+    color: #d93025;
+}
+
+.toast-warning .toast-icon {
+    background: #fef7e0;
+    color: #f9ab00;
+}
+
+.toast-info .toast-icon {
+    background: #e8f0fe;
+    color: #1a73e8;
+}
+
+.toast-fade-out {
+    opacity: 0;
+    transform: translateX(100%);
+}
+
+/* 添加窗口操作按钮样式 */
+.window-actions {
+    display: flex;
+    gap: 8px;
+    justify-content: flex-end;
+}
+
+.window-actions .btn {
+    height: 24px; /* 设置按钮高度 */
+    font-size: 0.7rem; /* 设置字体大小 */
+    padding: 0 8px; /* 调整内边距 */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.window-action-btn {
+    padding: 4px 8px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 12px;
+    transition: all 0.2s ease;
+}
+
+.window-action-btn:hover {
+    opacity: 0.8;
+}
+
+.navbar-nav .form-control {
+    width: 300px; /* 调整输入框宽度 */
+    margin-right: 10px; /* 添加右边距 */
+}
