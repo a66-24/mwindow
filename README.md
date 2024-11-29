@@ -28,6 +28,7 @@
 ## 安装与运行
 
 1. 克隆项目到本地：
+
    ```bash
    git clone <repository-url>
    cd <project-directory>
@@ -36,11 +37,13 @@
 2. 使用本地服务器运行（因为使用了 ES6 模块）：
 
    - 如果你有 Python：
+
      ```bash
      python -m http.server
      ```
 
    - 如果你有 Node.js：
+
      ```bash
      npx serve
      ```
@@ -62,4 +65,4 @@
 
 ## 许可证
 
-该项目使用 MIT 许可证。 
+该项目使用 MIT 许可证。

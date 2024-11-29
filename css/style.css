@@ -1,726 +1,717 @@
 :root {
-    --navbar-bg: #333333; /* 深灰色 */
-    --primary-color: #4a4a4a; /* 主色调：深灰色 */
-    --secondary-color: #666666; /* 次要色调：中灰色 */
-    --info-color: #808080; /* 信息色：灰色 */
-    /* 其他颜色变量... */
+  --navbar-bg: #333333; /* 深灰色 */
+  --primary-color: #4a4a4a; /* 主色调：深灰色 */
+  --secondary-color: #666666; /* 次要色调：中灰色 */
+  --info-color: #808080; /* 信息色：灰色 */
+  /* 其他颜色变量... */
 }
 
 /* 修改导航栏样式 */
 .navbar.bg-primary {
-    background-color: var(--navbar-bg) !important;
+  background-color: var(--navbar-bg) !important;
 }
 
 /* 修改徽章颜色 */
 .badge.bg-info {
-    background-color: var(--info-color) !important;
+  background-color: var(--info-color) !important;
 }
 
 /* 修改按钮颜色 */
 .btn-primary {
-    background-color: var(--primary-color) !important;
-    border-color: var(--primary-color) !important;
+  background-color: var(--primary-color) !important;
+  border-color: var(--primary-color) !important;
 }
 
 /* 调整导航栏文字颜色 */
 .navbar-dark .navbar-brand {
-    color: #fff;
-    font-weight: 500;
+  color: #fff;
+  font-weight: 500;
 }
 
 .window-container {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    padding: 15px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding: 15px;
 }
 
 .browser-window {
-    min-height: 500px;
-    background: #fff;
-    border: 1px solid #dee2e6;
-    border-radius: 8px;
-    transition: all 0.3s ease;
-    display: flex;
-    flex-direction: column;
-    overflow: hidden;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    width: 100%;
+  min-height: 500px;
+  background: #fff;
+  border: 1px solid #dee2e6;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  width: 100%;
 }
 
 .window-header {
-    padding: 4px;
-    background: #f8f9fa;
-    border-bottom: 1px solid #dee2e6;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    gap: 8px;
+  padding: 4px;
+  background: #f8f9fa;
+  border-bottom: 1px solid #dee2e6;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
 }
 
 .window-content {
-    flex: 1;
-    position: relative;
-    padding-bottom: 60px; /* 为悬浮按钮留出空间 */
+  flex: 1;
+  position: relative;
+  padding-bottom: 60px; /* 为悬浮按钮留出空间 */
 }
 
 .window-iframe {
-    width: 100%;
-    height: 100%;
-    border: none;
-    position: absolute;
+  width: 100%;
+  height: 100%;
+  border: none;
+  position: absolute;
 }
 
 .window-footer {
-    padding: 8px;
-    background: #f8f9fa;
-    border-top: 1px solid #dee2e6;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  padding: 8px;
+  background: #f8f9fa;
+  border-top: 1px solid #dee2e6;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .device-info {
-    display: flex;
-    gap: 4px;
-    align-items: center;
-    font-size: 0.5rem;
-    font-weight: bold;
-    order: 1;
-    margin-bottom: 0;
-    flex-wrap: nowrap;
+  display: flex;
+  gap: 4px;
+  align-items: center;
+  font-size: 0.5rem;
+  font-weight: bold;
+  order: 1;
+  margin-bottom: 0;
+  flex-wrap: nowrap;
 }
 
 .device-info .badge {
-    padding: 0.25em 0.5em;
-    font-size: 0.5rem;
-    white-space: nowrap;
+  padding: 0.25em 0.5em;
+  font-size: 0.5rem;
+  white-space: nowrap;
 }
 
 .window-controls {
-    display: flex;
-    align-items: center;
-    gap: 10px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
 .form-range {
-    width: 150px;
+  width: 150px;
 }
 
 /* 确保每行最多5个窗口 */
 @media (min-width: 992px) {
-    .browser-window {
-        max-width: calc(20% - 10px);
-        min-width: calc(20% - 10px);
-    }
+  .browser-window {
+    max-width: calc(20% - 10px);
+    min-width: calc(20% - 10px);
+  }
 }
 
 /* 添加 Toast 样式 */
 .toast {
-    background: white;
-    border-radius: 8px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-    margin-bottom: 10px;
-    transition: all 0.3s ease;
-    max-width: 350px;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  margin-bottom: 10px;
+  transition: all 0.3s ease;
+  max-width: 350px;
 }
 
 .toast-content {
-    padding: 12px 16px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
+  padding: 12px 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
 .toast-icon {
-    width: 24px;
-    height: 24px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 50%;
-    font-weight: bold;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  font-weight: bold;
 }
 
 .toast-success .toast-icon {
-    background: #e6f4ea;
-    color: #1e8e3e;
+  background: #e6f4ea;
+  color: #1e8e3e;
 }
 
 .toast-error .toast-icon {
-    background: #fce8e6;
-    color: #d93025;
+  background: #fce8e6;
+  color: #d93025;
 }
 
 .toast-warning .toast-icon {
-    background: #fef7e0;
-    color: #f9ab00;
+  background: #fef7e0;
+  color: #f9ab00;
 }
 
 .toast-info .toast-icon {
-    background: #e8f0fe;
-    color: #1a73e8;
+  background: #e8f0fe;
+  color: #1a73e8;
 }
 
 .toast-fade-out {
-    opacity: 0;
-    transform: translateX(100%);
+  opacity: 0;
+  transform: translateX(100%);
 }
 
 /* 添加窗口操作按钮样式 */
 .window-actions {
-    display: flex;
-    gap: 6px;
-    order: 2;
-    flex-shrink: 0;
+  display: flex;
+  gap: 6px;
+  order: 2;
+  flex-shrink: 0;
 }
 
 .window-actions .btn {
-    height: 17px;
-    font-size: 0.5rem;
-    padding: 0 6px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  height: 17px;
+  font-size: 0.5rem;
+  padding: 0 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .window-action-btn {
-    padding: 4px 8px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 12px;
-    transition: all 0.2s ease;
+  padding: 4px 8px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 12px;
+  transition: all 0.2s ease;
 }
 
 .window-action-btn:hover {
-    opacity: 0.8;
+  opacity: 0.8;
 }
 
 .navbar-nav .form-control {
-    width: 300px; /* 调整输入框宽度 */
-    margin-right: 10px; /* 添加右边距 */
+  width: 300px; /* 调整输入框宽度 */
+  margin-right: 10px; /* 添加右边距 */
 }
 
 /* 响应式布局 */
 /* 手机端 */
 @media (max-width: 767px) {
-    .window-container {
-        display: flex;
-        flex-direction: column;
-        gap: 15px;
-        padding: 10px;
-        min-height: 100vh; /* 确保容器至少有一个视口高度 */
-    }
+  .window-container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    padding: 10px;
+    min-height: 100vh; /* 确保容器至少有一个视口高度 */
+  }
 
-    .browser-window {
-        width: 100% !important; /* 强制宽度100% */
-        min-height: 80vh;
-        margin-bottom: 15px;
-        flex-shrink: 0; /* 防止窗口被压缩 */
-    }
+  .browser-window {
+    width: 100% !important; /* 强制宽度100% */
+    min-height: 80vh;
+    margin-bottom: 15px;
+    flex-shrink: 0; /* 防止窗口被压缩 */
+  }
 
-    .window-content {
-        height: calc(80vh - 120px);
-        min-height: 300px;
-        position: relative;
-    }
+  .window-content {
+    height: calc(80vh - 120px);
+    min-height: 300px;
+    position: relative;
+  }
 
-    /* 确保导航栏在手机端正确显示 */
-    .navbar .container-fluid {
-        flex-direction: column;
-        padding: 10px;
-    }
+  /* 确保导航栏在手机端正确显示 */
+  .navbar .container-fluid {
+    flex-direction: column;
+    padding: 10px;
+  }
 
-    .window-controls {
-        width: 100%;
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-        gap: 8px;
-        margin: 10px 0;
-    }
+  .window-controls {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px;
+    margin: 10px 0;
+  }
 
-    .window-controls .btn {
-        flex: 1;
-        min-width: auto;
-        font-size: 0.9rem;
-        padding: 8px;
-        white-space: nowrap;
-    }
+  .window-controls .btn {
+    flex: 1;
+    min-width: auto;
+    font-size: 0.9rem;
+    padding: 8px;
+    white-space: nowrap;
+  }
 
-    /* 优化输入框在手机端的显示 */
-    .navbar-nav {
-        width: 100%;
-    }
+  /* 优化输入框在手机端的显示 */
+  .navbar-nav {
+    width: 100%;
+  }
 
-    .navbar-nav .form-control {
-        width: 100%;
-        margin: 10px 0;
-    }
+  .navbar-nav .form-control {
+    width: 100%;
+    margin: 10px 0;
+  }
 }
 
 /* 平板端 */
 @media (min-width: 768px) and (max-width: 991px) {
-    .browser-window {
-        width: calc(50% - 10px);
-        min-height: 60vh;
-    }
+  .browser-window {
+    width: calc(50% - 10px);
+    min-height: 60vh;
+  }
 }
 
 /* 桌面端 */
 @media (min-width: 992px) {
-    .browser-window {
-        width: calc(20% - 10px);
-        min-height: 500px;
-    }
+  .browser-window {
+    width: calc(20% - 10px);
+    min-height: 500px;
+  }
 }
 
 /* 导航栏响应式 */
 @media (max-width: 767px) {
-    .navbar .container-fluid {
-        flex-direction: column;
-        align-items: stretch;
-        padding: 10px;
-    }
+  .navbar .container-fluid {
+    flex-direction: column;
+    align-items: stretch;
+    padding: 10px;
+  }
 
-    .window-controls {
-        margin: 10px 0;
-    }
+  .window-controls {
+    margin: 10px 0;
+  }
 
-    .navbar-brand {
-        text-align: center;
-        margin-bottom: 10px;
-    }
+  .navbar-brand {
+    text-align: center;
+    margin-bottom: 10px;
+  }
 }
 
 /* 模态框响应式 */
 @media (max-width: 767px) {
-    .modal-dialog {
-        margin: 10px;
-    }
+  .modal-dialog {
+    margin: 10px;
+  }
 
-    .modal-body {
-        padding: 10px;
-    }
+  .modal-body {
+    padding: 10px;
+  }
 }
 
 /* 固定导航栏 */
 .navbar {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    z-index: 1030;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1030;
 }
 
 /* 为固定导航栏添加内容偏移 */
 .container-fluid.mt-3 {
-    margin-top: 80px !important; /* 移动端 */
+  margin-top: 80px !important; /* 移动端 */
 }
 
 @media (min-width: 768px) {
-    .container-fluid.mt-3 {
-        margin-top: 60px !important; /* 桌面端 */
-    }
+  .container-fluid.mt-3 {
+    margin-top: 60px !important; /* 桌面端 */
+  }
 }
 
 /* 回到顶部按钮样式优化 */
 .back-to-top {
-    position: fixed;
-    bottom: 30px; /* 调整位置 */
-    right: 30px; /* 调整位置 */
-    width: 40px; /* 增大按钮尺寸 */
-    height: 40px;
-    background-color: rgba(74, 74, 74, 0.8); /* 半透明背景 */
-    color: white;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    opacity: 0;
-    transition: all 0.3s ease;
-    z-index: 1050; /* 确保在其他元素之上 */
-    border: none;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.2);
-    font-size: 1.2rem; /* 增大图标尺寸 */
+  position: fixed;
+  bottom: 30px; /* 调整位置 */
+  right: 30px; /* 调整位置 */
+  width: 48px; /* 从40px增加到48px */
+  height: 48px; /* 从40px增加到48px */
+  background-color: rgba(74, 74, 74, 0.8); /* 半透明背景 */
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  opacity: 0;
+  transition: all 0.3s ease;
+  z-index: 1050; /* 确保在其他元素之上 */
+  border: none;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  font-size: 1.4rem; /* 从1.2rem增加到1.4rem */
 }
 
 .back-to-top.visible {
-    opacity: 1;
+  opacity: 1;
 }
 
 .back-to-top:hover {
-    background-color: var(--primary-color);
-    transform: translateY(-2px);
-    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+  background-color: var(--primary-color);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
 }
 
 /* 在移动端调整位置和大小 */
 @media (max-width: 767px) {
-    .back-to-top {
-        bottom: 20px;
-        right: 20px;
-        width: 35px;
-        height: 35px;
-        font-size: 1rem;
-    }
+  .back-to-top {
+    bottom: 20px;
+    right: 20px;
+    width: 42px; /* 从35px增加到42px */
+    height: 42px; /* 从35px增加到42px */
+    font-size: 1.2rem; /* 从1rem增加到1.2rem */
+  }
 }
 
 /* 修改全局URL输入框样式 */
 .navbar-nav {
-    position: relative;
+  position: relative;
 }
 
 .navbar-nav .form-control {
-    padding-right: 45px; /* 为按钮留出空间 */
+  padding-right: 45px; /* 为按钮留出空间 */
 }
 
 .url-submit-btn {
-    position: absolute;
-    right: 5px;
-    top: 50%;
-    transform: translateY(-50%);
-    background: none;
-    border: none;
-    color: var(--primary-color);
-    padding: 5px 10px;
-    cursor: pointer;
+  position: absolute;
+  right: 5px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  color: var(--primary-color);
+  padding: 5px 10px;
+  cursor: pointer;
 }
 
 /* 修改窗口底部URL输入框 */
 .window-footer {
-    display: none; /* 默认隐藏 */
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    background: rgba(255, 255, 255, 0.95);
-    padding: 10px;
-    box-shadow: 0 -2px 5px rgba(0,0,0,0.1);
-    z-index: 11; /* 确保在编辑按钮之上 */
+  display: none; /* 默认隐藏 */
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(255, 255, 255, 0.95);
+  padding: 10px;
+  box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+  z-index: 11; /* 确保在编辑按钮之上 */
 }
 
 /* 编辑URL的悬浮按钮 */
 .url-edit-btn {
-    position: absolute;
-    bottom: 20px;
-    right: 20px;
-    width: 20px; /* 原来是40px */
-    height: 20px; /* 原来是40px */
-    background-color: var(--primary-color);
-    color: white;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    border: none;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-    z-index: 10;
-    opacity: 0.8;
-    transition: opacity 0.3s;
-    font-size: 0.7rem; /* 调整图标大小 */
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  width: 32px; /* 从20px增加到32px */
+  height: 32px; /* 从20px增加到32px */
+  background-color: var(--primary-color);
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border: none;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  z-index: 10;
+  opacity: 0.8;
+  transition: opacity 0.3s;
+  font-size: 0.9rem; /* 从0.7rem增加到0.9rem */
 }
 
 .url-edit-btn:hover {
-    opacity: 1;
+  opacity: 1;
 }
 
-/* 确保窗口内容区域有足够的下边距 */
+/* 确保窗内容区域有足够的下边距 */
 .window-content {
-    position: relative;
-    padding-bottom: 60px; /* 为悬浮按钮留出空间 */
+  position: relative;
+  padding-bottom: 60px; /* 为悬浮按钮留出空间 */
 }
 
 /* 添加返回页面顶部的按钮样式 */
 .back-to-top-iframe {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    width: 20px;
-    height: 20px;
-    background-color: var(--primary-color);
-    color: white;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    border: none;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-    z-index: 10;
-    opacity: 0.8;
-    transition: opacity 0.3s;
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 32px; /* 从20px增加到32px */
+  height: 32px; /* 从20px增加到32px */
+  background-color: var(--primary-color);
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border: none;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  z-index: 10;
+  opacity: 0.8;
+  transition: opacity 0.3s;
+  font-size: 0.9rem; /* 增加图标大小 */
 }
 
 .back-to-top-iframe:hover {
-    opacity: 1;
+  opacity: 1;
 }
 
 /* 手机端按钮样式优化 */
 @media (max-width: 767px) {
-    /* 其他样式保持不变... */
+  /* 其他样式保持不变... */
 
-    .window-controls .btn {
-        flex: 1;
-        min-width: auto;
-        font-size: 1.1rem; /* 增大字体大小 20% */
-        padding: 10px; /* 增大内边距 */
-        white-space: nowrap;
-        height: auto; /* 移除固定高度限制 */
-    }
+  .window-controls .btn {
+    flex: 1;
+    min-width: auto;
+    font-size: 1.1rem; /* 增大字体大小 20% */
+    padding: 10px; /* 增大内边距 */
+    white-space: nowrap;
+    height: auto; /* 移除固定高度限制 */
+  }
 
-    .window-actions .btn {
-        height: 14.4px; /* 增大 20% (原来是12px) */
-        font-size: 0.42rem; /* 增大 20% (原来是0.35rem) */
-        padding: 0 5px; /* 增大内边距 */
-    }
+  .window-actions .btn {
+    height: 14.4px; /* 增大 20% (原来是12px) */
+    font-size: 0.42rem; /* 增大 20% (原来是0.35rem) */
+    padding: 0 5px; /* 增大内边距 */
+  }
 
-    /* 调整导航栏内边距 */
-    .navbar .container-fluid {
-        padding: 12px; /* 增大内边距 */
-    }
+  /* 调整导航栏内边距 */
+  .navbar .container-fluid {
+    padding: 12px; /* 增大内边距 */
+  }
 
-    /* 调整按钮组间距 */
-    .window-controls {
-        gap: 10px; /* 增大间距 */
-        margin: 12px 0; /* 增大外边距 */
-    }
+  /* 调整按钮组间距 */
+  .window-controls {
+    gap: 10px; /* 增大间距 */
+    margin: 12px 0; /* 增大外边距 */
+  }
 }
 
 /* 修改窗口顶部按钮的大小 */
 .window-actions .btn {
-    height: 17px; /* 增加20% (原来是14.4px) */
-    font-size: 0.5rem; /* 增加20% (原来是0.42rem) */
-    padding: 0 6px; /* 增加内边距 */
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  height: 17px; /* 增加20% (原来是14.4px) */
+  font-size: 0.5rem; /* 增加20% (原来是0.42rem) */
+  padding: 0 6px; /* 增加内边距 */
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 /* 调整按钮图标的大小 */
 .window-actions .btn i {
-    font-size: 0.6rem; /* 增加图标大小 */
+  font-size: 0.6rem; /* 增加图标大小 */
 }
 
 /* 调整按钮组的间距和对齐 */
 .window-actions {
-    display: flex;
-    gap: 10px;
-    justify-content: flex-end;
-    padding: 4px 0; /* 增加上下内边距 */
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+  padding: 4px 0; /* 增加上下内边距 */
 }
 
 /* 确保设备信息和按钮对齐 */
 .device-info {
-    display: flex;
-    gap: 4px;
-    align-items: center;
-    font-size: 0.6rem; /* 相应调整设备信息文字大小 */
-    font-weight: bold;
-    justify-content: flex-start;
-    margin-bottom: 4px; /* 增加与按钮的间距 */
+  display: flex;
+  gap: 4px;
+  align-items: center;
+  font-size: 0.6rem; /* 相应调整设备信息文字大小 */
+  font-weight: bold;
+  justify-content: flex-start;
+  margin-bottom: 4px; /* 增加与按钮的间距 */
 }
 
 /* 确保在移动端也保持这个布局 */
 @media (max-width: 767px) {
-    .window-header {
-        flex-wrap: nowrap; /* 防止换行 */
-    }
-    
-    .device-info {
-        flex: 1; /* 允许设备信息占用剩余空间 */
-        min-width: 0; /* 允许内容收缩 */
-    }
-    
-    .window-actions {
-        flex-shrink: 0; /* 防止按钮被压缩 */
-    }
+  .window-header {
+    flex-wrap: nowrap; /* 防止换行 */
+  }
+
+  .device-info {
+    flex: 1; /* 允许设备信息占用剩余空间 */
+    min-width: 0; /* 允许内容收缩 */
+  }
+
+  .window-actions {
+    flex-shrink: 0; /* 防止按钮被压缩 */
+  }
 }
 
 @media (max-width: 767px) {
-    /* 移动端样式统一管理 */
-    .window-controls,
-    .navbar .container-fluid,
-    .window-header,
-    .device-info {
-        /* 共同样式 */
-    }
+  /* 移动端样式统一管理 */
+  .window-controls,
+  .navbar .container-fluid,
+  .window-header,
+  .device-info {
+    /* 共同样式 */
+  }
 }
 
 /* 修改URL输入框容器样式 */
 .url-input-container {
-    position: relative;
-    width: auto;
-    min-width: 50px;
-    max-width: 300px;
-    margin-right: 0;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  width: 300px;
+  margin-left: auto;
 }
 
 .url-input-container .form-control {
-    width: 100%;
-    height: 32px;
-    padding: 4px 30px 4px 12px;
-    font-size: 14px;
-    border-radius: 16px;
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    background: rgba(255, 255, 255, 0.1);
-    color: #fff;
-    backdrop-filter: blur(5px);
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  width: 100%;
+  height: 36px;
+  padding: 8px 38px 8px 16px;
+  font-size: 14px;
+  color: #fff;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 6px;
+  transition: all 0.25s ease;
 }
 
-/* 未聚焦且未输入内容时的样式 */
-.url-input-container .form-control:not(:focus):placeholder-shown {
-    width: 120px;
-    margin-left: auto; /* 让输入框靠右 */
-    background: rgba(255, 255, 255, 0.1);
-    cursor: pointer;
+/* 输入框悬停状态 */
+.url-input-container .form-control:hover {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.2);
 }
 
-/* 聚焦或有内容时的样式 */
-.url-input-container .form-control:focus,
-.url-input-container .form-control:not(:placeholder-shown) {
-    width: 300px; /* 固定展开宽度 */
-    margin-left: -180px; /* 向左扩展：300px - 120px = 180px */
-    background: rgba(255, 255, 255, 0.95);
-    color: #333;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+/* 入框聚焦状态 */
+.url-input-container .form-control:focus {
+  background: var(--navbar-bg);
+  border-color: rgba(255, 255, 255, 0.3);
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.1);
+  color: #fff;
+}
+
+/* 提交按钮样式 */
+.url-submit-btn {
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  color: rgba(255, 255, 255, 0.6);
+  padding: 4px;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.url-submit-btn:hover {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+/* 占位符文本样式 */
+.url-input-container .form-control::placeholder {
+  color: rgba(255, 255, 255, 0.4);
 }
 
 /* 移动端适配 */
 @media (max-width: 767px) {
-    .url-input-container {
-        flex: 1;
-        max-width: none;
-        margin-right: 8px;
-    }
-    
-    .url-input-container .form-control:not(:focus):placeholder-shown {
-        width: 120px;
-        margin-left: auto;
-    }
-    
-    .url-input-container .form-control:focus,
-    .url-input-container .form-control:not(:placeholder-shown) {
-        width: 100%;
-        margin-left: 0;
-    }
+  .url-input-container {
+    width: 100%;
+    margin: 8px 0;
+  }
+
+  .url-input-container .form-control {
+    height: 40px;
+    font-size: 15px;
+  }
 }
 
 /* 导航栏右侧按钮样式 */
 .navbar-actions {
-    margin-left: auto;
+  margin-left: auto;
 }
 
 .navbar-actions .btn {
-    padding: 6px 10px;
+  padding: 6px 10px;
 }
 
 .navbar-actions .dropdown-menu {
-    min-width: 200px;
+  min-width: 200px;
 }
 
 .navbar-actions .dropdown-item {
-    padding: 8px 16px;
+  padding: 8px 16px;
 }
 
 .navbar-actions .dropdown-item i {
-    margin-right: 8px;
-    width: 16px;
-    text-align: center;
+  margin-right: 8px;
+  width: 16px;
+  text-align: center;
 }
 
 /* 移动端适配 */
 @media (max-width: 767px) {
-    .container-fluid {
-        padding: 10px;
-    }
-    
-    .url-input-container {
-        width: 100%;
-        max-width: none;
-    }
-    
-    .url-input-container .form-control:not(:focus):placeholder-shown {
-        width: 100%;
-    }
-    
-    .navbar-actions {
-        margin-left: 10px;
-    }
+  .container-fluid {
+    padding: 10px;
+  }
+
+  .url-input-container {
+    width: 100%;
+    max-width: none;
+  }
+
+  .url-input-container .form-control:not(:focus):placeholder-shown {
+    width: 100%;
+  }
+
+  .navbar-actions {
+    margin-left: 10px;
+  }
 }
 
 /* 导航栏右侧工具栏样式 */
 .navbar-tools {
-    display: flex;
-    align-items: center;
-    gap: 8px; /* 减小间距 */
-    margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-left: auto;
 }
 
-/* URL输入框容器样式 */
-.url-input-container {
-    position: relative;
-    width: auto;
-    min-width: 50px;
-    max-width: 300px;
-    margin-right: 0; /* 移除右边距 */
-    transition: all 0.3s ease;
+/* 图标按钮样式 */
+.btn-icon {
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.8);
+  transition: all 0.25s ease;
 }
 
-.url-input-container .form-control {
-    width: 100%;
-    height: 32px; /* 减小输入框高度 */
-    padding: 4px 30px 4px 8px; /* 调整内边距 */
-    font-size: 14px; /* 调整字体大小 */
-    transition: all 0.3s ease;
+.btn-icon:hover {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.2);
+  color: #fff;
 }
 
-.url-input-container .form-control:not(:focus):placeholder-shown {
-    width: 120px; /* 未输入内容时的宽度 */
-}
-
-.url-submit-btn {
-    position: absolute;
-    right: 5px;
-    top: 50%;
-    transform: translateY(-50%);
-    background: none;
-    border: none;
-    color: var(--primary-color);
-    padding: 4px;
-    cursor: pointer;
-    font-size: 14px;
-}
-
-/* 三个点菜单按钮样式 */
-.navbar-tools .dropdown .btn {
-    height: 32px;
-    padding: 4px 8px;
-    display: flex;
-    align-items: center;
-}
-
-.navbar-tools .dropdown-menu {
-    min-width: 200px;
+.btn-icon i {
+  font-size: 18px;
 }
 
 /* 移动端适配 */
 @media (max-width: 767px) {
-    .navbar-tools {
-        width: 100%;
-        justify-content: flex-end;
-        margin-top: 10px;
-    }
-    
-    .url-input-container {
-        flex: 1;
-        max-width: none;
-        margin-right: 8px; /* 在移动端添加一点间距 */
-    }
+  .navbar-tools {
+    width: 100%;
+    justify-content: flex-end;
+    margin-top: 10px;
+    gap: 10px;
+  }
+
+  .btn-icon {
+    width: 40px;
+    height: 40px;
+  }
+
+  .btn-icon i {
+    font-size: 20px;
+  }
 }

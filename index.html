@@ -1,203 +1,315 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="zh-CN">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>矩阵助手</title>
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+    <title>好多窗口</title>
     <!-- Bootstrap 5 CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      onerror="this.onerror=null;this.href='https://fastly.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css'"
+    />
     <!-- Bootstrap Icons -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css"
+      onerror="this.onerror=null;this.href='https://fastly.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css'"
+    />
     <!-- 自定义样式 -->
-    <link href="./css/style.css" rel="stylesheet">
-</head>
-<body>
+    <link href="./css/style.css" rel="stylesheet" />
+  </head>
+  <body>
     <div id="app">
-        <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-            <div class="container-fluid">
-                <a class="navbar-brand" href="#">矩阵助手</a>
-                
-                <!-- 右侧工具栏 -->
-                <div class="navbar-tools">
-                    <!-- URL输入框 -->
-                    <div class="url-input-container">
-                        <input type="text" 
-                               class="form-control" 
-                               placeholder="输入网址并按回车" 
-                               @keyup.enter="navigateAll" 
-                               v-model="globalUrl">
-                        <button class="url-submit-btn" @click="navigateAll" v-show="globalUrl">
-                            <i class="bi bi-arrow-right-circle-fill"></i>
-                        </button>
-                    </div>
+      <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="#">好多窗口</a>
 
-                    <!-- 三个点菜单按钮 -->
-                    <div class="dropdown">
-                        <button class="btn btn-light" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            <i class="bi bi-three-dots-vertical"></i>
-                        </button>
-                        <ul class="dropdown-menu dropdown-menu-end">
-                            <li><a class="dropdown-item" href="#" @click="createNewWindow">
-                                <i class="bi bi-plus-lg"></i> 新建窗口
-                            </a></li>
-                            <li><a class="dropdown-item" href="#" @click="batchOperation('refresh-all')">
-                                <i class="bi bi-arrow-clockwise"></i> 刷新所有设备指纹
-                            </a></li>
-                            <li><a class="dropdown-item" href="#" @click="batchOperation('reload-all')">
-                                <i class="bi bi-arrow-repeat"></i> 刷新所有窗口
-                            </a></li>
-                            <li><a class="dropdown-item" href="#" @click="showSettings">
-                                <i class="bi bi-gear"></i> 设置
-                            </a></li>
-                            <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item text-danger" href="#" @click="closeAllWindows">
-                                <i class="bi bi-x-lg"></i> 关闭所有窗口
-                            </a></li>
-                        </ul>
-                    </div>
-                </div>
+          <!-- 右��工具栏 -->
+          <div class="navbar-tools">
+            <!-- URL输入框 -->
+            <div class="url-input-container">
+              <input
+                type="text"
+                class="form-control"
+                placeholder="输入网址并按回车"
+                @keyup.enter="navigateAll"
+                v-model="globalUrl"
+              />
+              <button
+                class="url-submit-btn"
+                @click="navigateAll"
+                v-show="globalUrl"
+              >
+                <i class="bi bi-arrow-right-circle-fill"></i>
+              </button>
             </div>
-        </nav>
 
-        <!-- 添加设置模态框 -->
-        <div class="modal fade" id="settingsModal" tabindex="-1">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title">设置</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="mb-3">
-                            <label class="form-label">默认URL</label>
-                            <input type="text" class="form-control" v-model="settings.defaultUrl">
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label">设备模拟策略</label>
-                            <select class="form-select" v-model="settings.deviceStrategy">
-                                <option value="random">完全随机</option>
-                                <option value="android">仅安卓设备</option>
-                                <option value="ios">仅iOS设备</option>
-                            </select>
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label">自动保存间隔（秒）</label>
-                            <input type="number" class="form-control" v-model="settings.autoSaveInterval">
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label">配置导入/导出</label>
-                            <div class="d-flex gap-2">
-                                <button class="btn btn-outline-primary" @click="exportConfig">
-                                    导出配置
-                                </button>
-                                <label class="btn btn-outline-secondary">
-                                    导入配置
-                                    <input type="file" 
-                                           accept=".json" 
-                                           style="display: none" 
-                                           @change="importConfig">
-                                </label>
-                            </div>
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label">快捷键</label>
-                            <div class="list-group">
-                                <div class="list-group-item">
-                                    <code>Ctrl/⌘ + N</code> - 新建窗口
-                                </div>
-                                <div class="list-group-item">
-                                    <code>Ctrl/⌘ + W</code> - 关闭当前窗口
-                                </div>
-                                <div class="list-group-item">
-                                    <code>Ctrl/⌘ + S</code> - 打开设置
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
-                        <button type="button" class="btn btn-primary" @click="saveSettings">保存设置</button>
-                    </div>
-                </div>
+            <!-- 新建窗口按钮 -->
+            <button
+              class="btn btn-light btn-icon"
+              @click="createNewWindow"
+              title="新建窗口"
+            >
+              <i class="bi bi-plus-lg"></i>
+            </button>
+
+            <!-- 三个点菜单按钮 -->
+            <div class="dropdown">
+              <button
+                class="btn btn-light btn-icon"
+                type="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                <i class="bi bi-three-dots-vertical"></i>
+              </button>
+              <ul class="dropdown-menu dropdown-menu-end">
+                <li>
+                  <a
+                    class="dropdown-item"
+                    href="#"
+                    @click="batchOperation('refresh-all')"
+                  >
+                    <i class="bi bi-arrow-clockwise"></i> 刷新所有设备指纹
+                  </a>
+                </li>
+                <li>
+                  <a
+                    class="dropdown-item"
+                    href="#"
+                    @click="batchOperation('reload-all')"
+                  >
+                    <i class="bi bi-arrow-repeat"></i> 刷新所有窗口
+                  </a>
+                </li>
+                <li>
+                  <a class="dropdown-item" href="#" @click="showSettings">
+                    <i class="bi bi-gear"></i> 设置
+                  </a>
+                </li>
+                <li><hr class="dropdown-divider" /></li>
+                <li>
+                  <a
+                    class="dropdown-item text-danger"
+                    href="#"
+                    @click="closeAllWindows"
+                  >
+                    <i class="bi bi-x-lg"></i> 关闭所有窗口
+                  </a>
+                </li>
+              </ul>
             </div>
+          </div>
         </div>
+      </nav>
 
-        <div class="container-fluid mt-3">
-            <div class="window-container">
-                <div v-for="(window, index) in windows" 
-                     :key="index" 
-                     class="browser-window"
-                     :style="{ width: window.width }">
-                    <div class="window-header">
-                        <div class="device-info">
-                            <span class="badge bg-info">{{window.platform === 'android' ? 'Android' : 'iOS'}}</span>
-                            <span class="badge bg-secondary">{{window.brand}} {{window.model}}</span>
-                            <span class="badge bg-light text-dark">{{window.platform === 'android' ? window.osVersion : window.version}}</span>
-                        </div>
-                        <div class="window-actions">
-                            <button class="btn btn-sm btn-outline-secondary" @click="refreshFingerprint(index)" title="刷新设备指纹">
-                                <i class="bi bi-arrow-clockwise"></i>
-                            </button>
-                            <button class="btn btn-sm btn-outline-secondary" @click="copyUrl(index)" title="复制当前URL">
-                                <i class="bi bi-clipboard"></i>
-                            </button>
-                            <button class="btn btn-sm btn-outline-secondary" @click="reloadWindow(index)" title="刷新页面">
-                                <i class="bi bi-arrow-repeat"></i>
-                            </button>
-                            <button class="btn btn-sm btn-danger" @click="closeWindow(index)" title="闭窗口">
-                                <i class="bi bi-x"></i>
-                            </button>
-                        </div>
-                    </div>
-                    <div class="window-content">
-                        <div v-if="window.isLoading" class="loading-overlay">
-                            <div class="spinner-border text-primary" role="status">
-                                <span class="visually-hidden">加载中...</span>
-                            </div>
-                        </div>
-                        <div v-if="window.error" class="error-message">
-                            {{ window.error }}
-                        </div>
-                        <iframe v-show="!window.isLoading && !window.error"
-                                :src="window.url" 
-                                :sandbox="iframeSandbox"
-                                class="window-iframe"
-                                @load="window.isLoading = false"
-                                @error="handleIframeError(index)">
-                        </iframe>
-                        <button class="url-edit-btn" @click="toggleUrlInput(index)" title="编辑网址">
-                            <i class="bi bi-pencil-fill"></i>
-                        </button>
-                        <button class="back-to-top-iframe" @click="scrollIframeToTop(index)" title="返回顶部">
-                            <i class="bi bi-arrow-up"></i>
-                        </button>
-                        <div class="window-footer" :id="'footer-'+index">
-                            <div class="input-group">
-                                <input type="text" 
-                                       class="form-control" 
-                                       v-model="window.url"
-                                       @keyup.enter="navigateTo(index); toggleUrlInput(index)"
-                                       placeholder="输入网址">
-                                <button class="btn btn-outline-secondary" @click="navigateTo(index); toggleUrlInput(index)">
-                                    确认
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+      <!-- 添���设置模态框 -->
+      <div class="modal fade" id="settingsModal" tabindex="-1">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">设置</h5>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+              ></button>
             </div>
+            <div class="modal-body">
+              <div class="mb-3">
+                <label class="form-label">默认URL</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  v-model="settings.defaultUrl"
+                />
+              </div>
+              <div class="mb-3">
+                <label class="form-label">设备模拟策略</label>
+                <select class="form-select" v-model="settings.deviceStrategy">
+                  <option value="random">完全随机</option>
+                  <option value="android">仅安卓设备</option>
+                  <option value="ios">仅iOS设备</option>
+                </select>
+              </div>
+              <div class="mb-3">
+                <label class="form-label">自动保存间隔（秒）</label>
+                <input
+                  type="number"
+                  class="form-control"
+                  v-model="settings.autoSaveInterval"
+                />
+              </div>
+              <div class="mb-3">
+                <label class="form-label">配置导入/导出</label>
+                <div class="d-flex gap-2">
+                  <button class="btn btn-outline-primary" @click="exportConfig">
+                    导出配置
+                  </button>
+                  <label class="btn btn-outline-secondary">
+                    导入配置
+                    <input
+                      type="file"
+                      accept=".json"
+                      style="display: none"
+                      @change="importConfig"
+                    />
+                  </label>
+                </div>
+              </div>
+              <div class="mb-3">
+                <label class="form-label">快捷键</label>
+                <div class="list-group">
+                  <div class="list-group-item">
+                    <code>Ctrl/⌘ + N</code> - 新建窗口
+                  </div>
+                  <div class="list-group-item">
+                    <code>Ctrl/⌘ + W</code> - 关闭当前窗口
+                  </div>
+                  <div class="list-group-item">
+                    <code>Ctrl/⌘ + S</code> - 打开设置
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-bs-dismiss="modal"
+              >
+                取消
+              </button>
+              <button
+                type="button"
+                class="btn btn-primary"
+                @click="saveSettings"
+              >
+                保存设置
+              </button>
+            </div>
+          </div>
         </div>
+      </div>
 
-        <button class="back-to-top" :class="{ visible: showBackToTop }" @click="scrollToTop">
-            <i class="bi bi-arrow-up"></i>
-        </button>
+      <div class="container-fluid mt-3">
+        <div class="window-container">
+          <div
+            v-for="(window, index) in windows"
+            :key="index"
+            class="browser-window"
+            :style="{ width: window.width }"
+          >
+            <div class="window-header">
+              <div class="device-info">
+                <span class="badge bg-secondary">{{window.model}}</span>
+                <span class="badge bg-light text-dark">{{window.platform === 'android' ? window.osVersion : window.version}}</span>
+              </div>
+              <div class="window-actions">
+                <button
+                  class="btn btn-sm btn-outline-secondary"
+                  @click="refreshFingerprint(index)"
+                  title="刷新设备指纹"
+                >
+                  <i class="bi bi-arrow-clockwise"></i>
+                </button>
+                <button
+                  class="btn btn-sm btn-outline-secondary"
+                  @click="copyUrl(index)"
+                  title="复制当前URL"
+                >
+                  <i class="bi bi-clipboard"></i>
+                </button>
+                <button
+                  class="btn btn-sm btn-outline-secondary"
+                  @click="reloadWindow(index)"
+                  title="刷页面"
+                >
+                  <i class="bi bi-arrow-repeat"></i>
+                </button>
+                <button
+                  class="btn btn-sm btn-danger"
+                  @click="closeWindow(index)"
+                  title="闭窗口"
+                >
+                  <i class="bi bi-x"></i>
+                </button>
+              </div>
+            </div>
+            <div class="window-content">
+              <div v-if="window.isLoading" class="loading-overlay">
+                <div class="spinner-border text-primary" role="status">
+                  <span class="visually-hidden">加载中...</span>
+                </div>
+              </div>
+              <div v-if="window.error" class="error-message">
+                {{ window.error }}
+              </div>
+              <iframe
+                v-show="!window.isLoading && !window.error"
+                :src="window.url"
+                :sandbox="iframeSandbox"
+                class="window-iframe"
+                @load="window.isLoading = false"
+                @error="handleIframeError(index)"
+              >
+              </iframe>
+              <button
+                class="url-edit-btn"
+                @click="toggleUrlInput(index)"
+                title="编辑网址"
+              >
+                <i class="bi bi-pencil-fill"></i>
+              </button>
+              <button
+                class="back-to-top-iframe"
+                @click="scrollIframeToTop(index)"
+                title="返回顶部"
+              >
+                <i class="bi bi-arrow-up"></i>
+              </button>
+              <div class="window-footer" :id="'footer-'+index">
+                <div class="input-group">
+                  <input
+                    type="text"
+                    class="form-control"
+                    v-model="window.url"
+                    @keyup.enter="navigateTo(index); toggleUrlInput(index)"
+                    placeholder="输入网址"
+                  />
+                  <button
+                    class="btn btn-outline-secondary"
+                    @click="navigateTo(index); toggleUrlInput(index)"
+                  >
+                    确认
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <button
+        class="back-to-top"
+        :class="{ visible: showBackToTop }"
+        @click="scrollToTop"
+      >
+        <i class="bi bi-arrow-up"></i>
+      </button>
     </div>
 
     <!-- Vue 3 -->
-    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js" 
+            onerror="this.onerror=null;this.src='https://cdn.bootcdn.net/ajax/libs/vue/3.3.4/vue.global.js'"></script>
     <!-- Bootstrap 5 JS Bundle -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+            onerror="this.onerror=null;this.src='https://fastly.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js'"></script>
     <!-- 自定义脚本 -->
     <script type="module" src="./js/main.js"></script>
-</body>
-</html> 
+  </body>
+</html>
