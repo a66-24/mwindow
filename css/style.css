@@ -393,14 +393,14 @@
   }
 }
 
-/* 回到顶部按钮样式优化 */
+/* 优化全局返回顶部按钮样式 */
 .back-to-top {
   position: fixed;
-  bottom: 30px; /* 调整位置 */
-  right: 30px; /* 调整位置 */
-  width: 48px; /* 从40px增加到48px */
-  height: 48px; /* 从40px增加到48px */
-  background-color: rgba(74, 74, 74, 0.8); /* 半透明背景 */
+  bottom: 30px;
+  right: 30px;
+  width: 48px;
+  height: 48px;
+  background-color: rgba(74, 74, 74, 0.8);
   color: white;
   border-radius: 50%;
   display: flex;
@@ -409,10 +409,10 @@
   cursor: pointer;
   opacity: 0;
   transition: all 0.3s ease;
-  z-index: 1050; /* 确保在其他元素之上 */
+  z-index: 1050;
   border: none;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
-  font-size: 1.4rem; /* 从1.2rem增加到1.4rem */
+  font-size: 1.4rem;
 }
 
 .back-to-top.visible {
@@ -425,14 +425,14 @@
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
 }
 
-/* 在移动端调整位置和大小 */
+/* 移动端适配 */
 @media (max-width: 767px) {
   .back-to-top {
     bottom: 20px;
     right: 20px;
-    width: 42px; /* 从35px增加到42px */
-    height: 42px; /* 从35px增加到42px */
-    font-size: 1.2rem; /* 从1rem增加到1.2rem */
+    width: 42px;
+    height: 42px;
+    font-size: 1.2rem;
   }
 }
 
@@ -500,32 +500,6 @@
 .window-content {
   position: relative;
   padding-bottom: 60px; /* 为悬浮按钮留出空间 */
-}
-
-/* 添加返回页面顶部的按钮样式 */
-.back-to-top-iframe {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  width: 32px; /* 从20px增加到32px */
-  height: 32px; /* 从20px增加到32px */
-  background-color: var(--primary-color);
-  color: white;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  border: none;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-  z-index: 10;
-  opacity: 0.8;
-  transition: opacity 0.3s;
-  font-size: 0.9rem; /* 增加图标大小 */
-}
-
-.back-to-top-iframe:hover {
-  opacity: 1;
 }
 
 /* 手机端按钮样式优化 */
@@ -781,4 +755,9 @@
   .btn-icon i {
     font-size: 20px;
   }
+}
+
+/* 删除常驻的返回顶部按钮样式 */
+.back-to-top-iframe {
+  display: none !important; /* 强制隐藏 */
 }
