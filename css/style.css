@@ -540,3 +540,187 @@
         flex-shrink: 0; /* 防止按钮被压缩 */
     }
 }
+
+@media (max-width: 767px) {
+    /* 移动端样式统一管理 */
+    .window-controls,
+    .navbar .container-fluid,
+    .window-header,
+    .device-info {
+        /* 共同样式 */
+    }
+}
+
+/* 修改URL输入框容器样式 */
+.url-input-container {
+    position: relative;
+    width: auto;
+    min-width: 50px;
+    max-width: 300px;
+    margin-right: 0;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.url-input-container .form-control {
+    width: 100%;
+    height: 32px;
+    padding: 4px 30px 4px 12px;
+    font-size: 14px;
+    border-radius: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
+    backdrop-filter: blur(5px);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* 未聚焦且未输入内容时的样式 */
+.url-input-container .form-control:not(:focus):placeholder-shown {
+    width: 120px;
+    margin-left: auto; /* 让输入框靠右 */
+    background: rgba(255, 255, 255, 0.1);
+    cursor: pointer;
+}
+
+/* 聚焦或有内容时的样式 */
+.url-input-container .form-control:focus,
+.url-input-container .form-control:not(:placeholder-shown) {
+    width: 300px; /* 固定展开宽度 */
+    margin-left: -180px; /* 向左扩展：300px - 120px = 180px */
+    background: rgba(255, 255, 255, 0.95);
+    color: #333;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* 移动端适配 */
+@media (max-width: 767px) {
+    .url-input-container {
+        flex: 1;
+        max-width: none;
+        margin-right: 8px;
+    }
+    
+    .url-input-container .form-control:not(:focus):placeholder-shown {
+        width: 120px;
+        margin-left: auto;
+    }
+    
+    .url-input-container .form-control:focus,
+    .url-input-container .form-control:not(:placeholder-shown) {
+        width: 100%;
+        margin-left: 0;
+    }
+}
+
+/* 导航栏右侧按钮样式 */
+.navbar-actions {
+    margin-left: auto;
+}
+
+.navbar-actions .btn {
+    padding: 6px 10px;
+}
+
+.navbar-actions .dropdown-menu {
+    min-width: 200px;
+}
+
+.navbar-actions .dropdown-item {
+    padding: 8px 16px;
+}
+
+.navbar-actions .dropdown-item i {
+    margin-right: 8px;
+    width: 16px;
+    text-align: center;
+}
+
+/* 移动端适配 */
+@media (max-width: 767px) {
+    .container-fluid {
+        padding: 10px;
+    }
+    
+    .url-input-container {
+        width: 100%;
+        max-width: none;
+    }
+    
+    .url-input-container .form-control:not(:focus):placeholder-shown {
+        width: 100%;
+    }
+    
+    .navbar-actions {
+        margin-left: 10px;
+    }
+}
+
+/* 导航栏右侧工具栏样式 */
+.navbar-tools {
+    display: flex;
+    align-items: center;
+    gap: 8px; /* 减小间距 */
+    margin-left: auto;
+}
+
+/* URL输入框容器样式 */
+.url-input-container {
+    position: relative;
+    width: auto;
+    min-width: 50px;
+    max-width: 300px;
+    margin-right: 0; /* 移除右边距 */
+    transition: all 0.3s ease;
+}
+
+.url-input-container .form-control {
+    width: 100%;
+    height: 32px; /* 减小输入框高度 */
+    padding: 4px 30px 4px 8px; /* 调整内边距 */
+    font-size: 14px; /* 调整字体大小 */
+    transition: all 0.3s ease;
+}
+
+.url-input-container .form-control:not(:focus):placeholder-shown {
+    width: 120px; /* 未输入内容时的宽度 */
+}
+
+.url-submit-btn {
+    position: absolute;
+    right: 5px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: var(--primary-color);
+    padding: 4px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+/* 三个点菜单按钮样式 */
+.navbar-tools .dropdown .btn {
+    height: 32px;
+    padding: 4px 8px;
+    display: flex;
+    align-items: center;
+}
+
+.navbar-tools .dropdown-menu {
+    min-width: 200px;
+}
+
+/* 移动端适配 */
+@media (max-width: 767px) {
+    .navbar-tools {
+        width: 100%;
+        justify-content: flex-end;
+        margin-top: 10px;
+    }
+    
+    .url-input-container {
+        flex: 1;
+        max-width: none;
+        margin-right: 8px; /* 在移动端添加一点间距 */
+    }
+}

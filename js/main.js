@@ -8,7 +8,7 @@ const app = createApp({
         return {
             windows: [],
             maxWindowsPerRow: 5,
-            iframeSandbox: 'allow-same-origin allow-scripts allow-popups allow-forms',
+            iframeSandbox: 'allow-scripts allow-popups allow-forms',
             isLoading: false,
             settings: {
                 defaultUrl: 'https://example.com',
@@ -92,8 +92,14 @@ const app = createApp({
                 window.url = url;
                 this.saveToLocalStorage();
             } catch (error) {
-                window.error = error.message;
-                ToastService.show(error.message, 'error');
+                let errorMessage = '未知错误';
+                if (error instanceof TypeError) {
+                    errorMessage = 'URL格式错误';
+                } else if (error instanceof NetworkError) {
+                    errorMessage = '网络连接失败';
+                }
+                window.error = errorMessage;
+                ToastService.show(errorMessage, 'error');
             } finally {
                 window.isLoading = false;
             }
@@ -117,20 +123,6 @@ const app = createApp({
             ToastService.show('所有窗口已关闭', 'success');
         },
 
-        generateUserAgent() {
-            const devices = [
-                'iPhone; CPU iPhone OS 14_0 like Mac OS X',
-                'iPhone; CPU iPhone OS 15_0 like Mac OS X',
-                'Android 10; Mobile',
-                'Android 11; Mobile',
-                'Android 12; Mobile'
-            ];
-            return `Mozilla/5.0 (${devices[Math.floor(Math.random() * devices.length)]})`;
-        },
-        generateFingerprint() {
-            const rand = () => Math.random().toString(36).substr(2, 9);
-            return `${rand()}_${rand()}`;
-        },
         saveToLocalStorage() {
             localStorage.setItem('matrix-windows', JSON.stringify(this.windows));
         },
@@ -302,7 +294,7 @@ const app = createApp({
 
             const urlPattern = /^(https?:\/\/)?([\da-z.-]+)\.([a-z.]{2,6})([\/\w .-]*)*\/?$/;
             if (!urlPattern.test(this.globalUrl)) {
-                ToastService.show('无效的URL格式', 'error');
+                ToastService.show('无效的URL格', 'error');
                 return;
             }
 

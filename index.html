@@ -16,30 +16,44 @@
         <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
             <div class="container-fluid">
                 <a class="navbar-brand" href="#">矩阵助手</a>
-                <div class="window-controls">
-                    <button class="btn btn-light" @click="createNewWindow">新建窗口</button>
-                    <button class="btn btn-danger" @click="closeAllWindows">关闭所有</button>
-                    <button class="btn btn-light" @click="showSettings">
-                        <i class="bi bi-gear"></i>
-                    </button>
-                    <div class="dropdown">
-                        <button class="btn btn-light dropdown-toggle" type="button" data-bs-toggle="dropdown">
-                            批量操作
-                        </button>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#" @click="batchOperation('refresh-all')">刷新所有设备指纹</a></li>
-                            <li><a class="dropdown-item" href="#" @click="batchOperation('reload-all')">刷新所有窗口</a></li>
-                            <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" href="#" @click="closeAllWindows">关闭所有窗口</a></li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="navbar-nav">
-                    <div style="position: relative;">
-                        <input type="text" class="form-control" placeholder="输入网址并按回车" @keyup.enter="navigateAll" v-model="globalUrl">
-                        <button class="url-submit-btn" @click="navigateAll">
+                
+                <!-- 右侧工具栏 -->
+                <div class="navbar-tools">
+                    <!-- URL输入框 -->
+                    <div class="url-input-container">
+                        <input type="text" 
+                               class="form-control" 
+                               placeholder="输入网址并按回车" 
+                               @keyup.enter="navigateAll" 
+                               v-model="globalUrl">
+                        <button class="url-submit-btn" @click="navigateAll" v-show="globalUrl">
                             <i class="bi bi-arrow-right-circle-fill"></i>
                         </button>
+                    </div>
+
+                    <!-- 三个点菜单按钮 -->
+                    <div class="dropdown">
+                        <button class="btn btn-light" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="bi bi-three-dots-vertical"></i>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            <li><a class="dropdown-item" href="#" @click="createNewWindow">
+                                <i class="bi bi-plus-lg"></i> 新建窗口
+                            </a></li>
+                            <li><a class="dropdown-item" href="#" @click="batchOperation('refresh-all')">
+                                <i class="bi bi-arrow-clockwise"></i> 刷新所有设备指纹
+                            </a></li>
+                            <li><a class="dropdown-item" href="#" @click="batchOperation('reload-all')">
+                                <i class="bi bi-arrow-repeat"></i> 刷新所有窗口
+                            </a></li>
+                            <li><a class="dropdown-item" href="#" @click="showSettings">
+                                <i class="bi bi-gear"></i> 设置
+                            </a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item text-danger" href="#" @click="closeAllWindows">
+                                <i class="bi bi-x-lg"></i> 关闭所有窗口
+                            </a></li>
+                        </ul>
                     </div>
                 </div>
             </div>
