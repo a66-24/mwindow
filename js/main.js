@@ -19,6 +19,7 @@ const app = createApp({
       settingsModal: null,
       globalUrl: "",
       showBackToTop: false,
+      lastScrollTop: 0,
     };
   },
   methods: {
@@ -346,7 +347,20 @@ const app = createApp({
 
     // 监听滚动以显示/隐藏回到顶部按钮
     handleScroll() {
-      this.showBackToTop = window.scrollY > 300;
+      this.showBackToTop = window.scrollY > 200;
+
+      if (window.innerWidth <= 767) {
+        const currentScroll = window.scrollY;
+        const navbar = document.querySelector('.navbar');
+        
+        if (currentScroll > this.lastScrollTop && currentScroll > 80) {
+          navbar.classList.add('navbar-hidden');
+        } else {
+          navbar.classList.remove('navbar-hidden');
+        }
+        
+        this.lastScrollTop = currentScroll;
+      }
     },
 
     // 滚动iframe到顶部
@@ -414,6 +428,8 @@ const app = createApp({
         }
       });
     });
+
+    this.lastScrollTop = window.scrollY;
   },
   beforeUnmount() {
     if (this.autoSaveTimer) {

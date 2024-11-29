@@ -33,6 +33,7 @@
   flex-wrap: wrap;
   gap: 10px;
   padding: 15px;
+  margin-top: 60px; /* 为固定导航栏留出空间 */
 }
 
 .browser-window {
@@ -212,6 +213,7 @@
     gap: 15px;
     padding: 10px;
     min-height: 100vh; /* 确保容器至少有一个视口高度 */
+    margin-top: calc(var(--navbar-height, 120px) + 10px); /* 动态计算上边距 */
   }
 
   .browser-window {
@@ -231,6 +233,14 @@
   .navbar .container-fluid {
     flex-direction: column;
     padding: 10px;
+    height: auto;
+    min-height: 60px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    padding: 8px;
+    gap: 8px;
   }
 
   .window-controls {
@@ -258,6 +268,17 @@
   .navbar-nav .form-control {
     width: 100%;
     margin: 10px 0;
+  }
+
+  /* 动态设置导航栏高度变量 */
+  .navbar {
+    height: auto;
+    min-height: 60px;
+  }
+
+  /* 导航栏高度变化时自动更新内容区域的边距 */
+  .navbar.expanded ~ .window-container {
+    margin-top: calc(var(--navbar-height, 120px) + 10px);
   }
 }
 
@@ -313,16 +334,62 @@
   left: 0;
   right: 0;
   z-index: 1030;
+  transition: transform 0.3s ease;
 }
 
-/* 为固定导航栏添加内容偏移 */
-.container-fluid.mt-3 {
-  margin-top: 80px !important; /* 移动端 */
+/* 添加导航栏隐藏类 */
+.navbar.navbar-hidden {
+  transform: translateY(-100%);
 }
 
-@media (min-width: 768px) {
+/* 修改移动端导航栏样式 */
+@media (max-width: 767px) {
+  .navbar .container-fluid {
+    padding: 8px;
+    min-height: 60px; /* 最小高度而不是固定高度 */
+    height: auto; /* 允许自动调整高度 */
+    display: flex;
+    flex-direction: row; /* 改为横向排列 */
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .navbar-brand {
+    font-size: 1.1rem;
+    margin: 0;
+    flex-shrink: 0;
+  }
+
+  .navbar-tools {
+    margin: 0;
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  /* 调整内容区域的上边距为动态值 */
   .container-fluid.mt-3 {
-    margin-top: 60px !important; /* 桌面端 */
+    margin-top: calc(60px + 1vh) !important; /* 基础高度 + 动态间距 */
+  }
+
+  /* 优化URL输入框布局 */
+  .url-input-container {
+    flex: 1;
+    min-width: 0;
+    margin: 0;
+  }
+
+  .url-input-container .form-control {
+    height: 36px;
+  }
+
+  /* 调整按钮尺寸 */
+  .btn-icon {
+    width: 36px;
+    height: 36px;
   }
 }
 
