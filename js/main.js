@@ -8,7 +8,7 @@ const app = createApp({
     return {
       windows: [],
       maxWindowsPerRow: 5,
-      iframeSandbox: "allow-scripts allow-popups allow-forms",
+      iframeSandbox: "allow-scripts allow-popups allow-forms allow-same-origin allow-storage-access-by-user-activation allow-modals",
       isLoading: false,
       settings: {
         defaultUrl: "https://example.com",
@@ -83,16 +83,51 @@ const app = createApp({
 
         // 验证URL是否有效
         const urlPattern =
-          /^(https?:\/\/)?([\da-z.-]+)\.([a-z.]{2,6})([\/\w .-]*)*\/?$/;
+          /^(https?:\/\/)?([da-z.-]+)\.([a-z.]{2,6})([/\w .-]*)*\/?$/;
         if (!urlPattern.test(url)) {
           throw new Error("无效的URL格式");
         }
 
-        // 自动登录逻辑（如果需要）
-        // 例如：通过POST请求发送登录信息
+        // 保存登录状态相关的数据
+        const loginState = {
+          cookies: document.cookie,
+          localStorage: { ...localStorage },
+          sessionStorage: { ...sessionStorage }
+        };
 
+        // 将登录状态保存到窗口对象中
+        window.loginState = loginState;
         window.url = url;
+
+        // 保存到本地存储
         this.saveToLocalStorage();
+
+        // 在iframe加载完成后恢复登录状态
+        this.$nextTick(() => {
+          const iframe = document.querySelector(`#window-${window.id} iframe`);
+          if (iframe) {
+            iframe.onload = () => {
+              try {
+                const iframeWindow = iframe.contentWindow;
+                if (window.loginState) {
+                  // 恢复localStorage和sessionStorage
+                  Object.entries(window.loginState.localStorage).forEach(([key, value]) => {
+                    iframeWindow.localStorage.setItem(key, value);
+                  });
+                  Object.entries(window.loginState.sessionStorage).forEach(([key, value]) => {
+                    iframeWindow.sessionStorage.setItem(key, value);
+                  });
+                  // 恢复cookies
+                  if (window.loginState.cookies) {
+                    iframeWindow.document.cookie = window.loginState.cookies;
+                  }
+                }
+              } catch (e) {
+                console.warn('恢复登录状态失败:', e);
+              }
+            };
+          }
+        });
       } catch (error) {
         let errorMessage = "未知错误";
         if (error instanceof TypeError) {
