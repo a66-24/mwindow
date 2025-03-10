@@ -8,7 +8,7 @@ const app = createApp({
     return {
       windows: [],
       maxWindowsPerRow: 5,
-      iframeSandbox: "allow-scripts allow-popups allow-forms allow-same-origin allow-storage-access-by-user-activation allow-modals",
+      iframeSandbox: "allow-scripts allow-popups allow-forms allow-same-origin allow-storage-access-by-user-activation allow-modals allow-credentials allow-downloads",
       isLoading: false,
       settings: {
         defaultUrl: "https://example.com",
@@ -92,12 +92,21 @@ const app = createApp({
         const loginState = {
           cookies: document.cookie,
           localStorage: { ...localStorage },
-          sessionStorage: { ...sessionStorage }
+          sessionStorage: { ...sessionStorage },
+          timestamp: Date.now()
         };
 
-        // 将登录状态保存到窗口对象中
+        // 将登录状态保存到窗口对象中，并设置过期时间
         window.loginState = loginState;
         window.url = url;
+
+        // 清理过期的登录状态（24小时过期）
+        const EXPIRY_TIME = 24 * 60 * 60 * 1000; // 24小时
+        this.windows.forEach(w => {
+          if (w.loginState && (Date.now() - w.loginState.timestamp) > EXPIRY_TIME) {
+            delete w.loginState;
+          }
+        });
 
         // 保存到本地存储
         this.saveToLocalStorage();
@@ -197,10 +206,14 @@ const app = createApp({
 
     async refreshFingerprint(index) {
       const window = this.windows[index];
+      // 保存当前的登录状态
+      const currentLoginState = window.loginState;
       const deviceProfile = await FingerprintService.generateDeviceProfile(
         this.settings.deviceStrategy,
       );
       Object.assign(window, deviceProfile);
+      // 恢复登录状态
+      window.loginState = currentLoginState;
       this.saveToLocalStorage();
       ToastService.show("设备纹已更新", "success");
     },
